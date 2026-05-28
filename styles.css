@@ -1,0 +1,429 @@
+/* ─── RedditSweep floating panel ─────────────────────────────────────────── */
+
+#rs-panel {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  width: 300px;
+  background: #1a1a1b;
+  border: 1px solid #343536;
+  border-radius: 12px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.55);
+  z-index: 2147483647;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 13px;
+  color: #d7dadc;
+  user-select: none;
+  overflow: hidden;
+}
+
+/* ─── Header ─────────────────────────────────────────────────────────────── */
+
+.rs-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+  background: #272729;
+  border-bottom: 1px solid #343536;
+  cursor: move;
+}
+
+.rs-title {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-weight: 700;
+  font-size: 14px;
+  color: #ff4500;
+  letter-spacing: 0.3px;
+}
+
+.rs-icon-broom {
+  width: 18px;
+  height: 18px;
+  stroke: #ff4500;
+}
+
+.rs-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.rs-badge {
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.8px;
+  padding: 2px 6px;
+  border-radius: 4px;
+  text-transform: uppercase;
+}
+
+.rs-badge-free {
+  background: #343536;
+  color: #818384;
+}
+
+.rs-badge-pro {
+  background: #ff4500;
+  color: #fff;
+}
+
+.rs-icon-btn {
+  background: none;
+  border: none;
+  color: #818384;
+  cursor: pointer;
+  padding: 2px 5px;
+  border-radius: 4px;
+  font-size: 14px;
+  line-height: 1;
+  transition: background 0.15s, color 0.15s;
+}
+
+.rs-icon-btn:hover {
+  background: #343536;
+  color: #d7dadc;
+}
+
+/* ─── Body sections ──────────────────────────────────────────────────────── */
+
+#rs-body {
+  padding: 0 12px 12px;
+  max-height: 520px;
+  overflow-y: auto;
+}
+
+#rs-body::-webkit-scrollbar {
+  width: 4px;
+}
+#rs-body::-webkit-scrollbar-track { background: transparent; }
+#rs-body::-webkit-scrollbar-thumb { background: #343536; border-radius: 2px; }
+
+.rs-section {
+  margin-top: 12px;
+}
+
+.rs-field-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: #818384;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 6px;
+}
+
+.rs-muted {
+  color: #555;
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+/* ─── Radio group ────────────────────────────────────────────────────────── */
+
+.rs-radio-group {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.rs-radio-label {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  cursor: pointer;
+  color: #d7dadc;
+  font-size: 13px;
+}
+
+.rs-radio-label input[type="radio"] {
+  accent-color: #ff4500;
+  cursor: pointer;
+}
+
+.rs-radio-label input:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.rs-pro-gate {
+  opacity: 0.6;
+}
+
+.rs-pro-gate:has(input:not(:disabled)) {
+  opacity: 1;
+}
+
+.rs-pro-chip {
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.6px;
+  padding: 1px 5px;
+  border-radius: 3px;
+  background: #343536;
+  color: #ff6534;
+  margin-left: 2px;
+}
+
+/* ─── Date row ───────────────────────────────────────────────────────────── */
+
+.rs-date-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+
+.rs-date-sep {
+  color: #555;
+}
+
+.rs-input {
+  background: #272729;
+  border: 1px solid #343536;
+  border-radius: 6px;
+  color: #d7dadc;
+  font-size: 12px;
+  padding: 5px 8px;
+  outline: none;
+  width: 100%;
+  box-sizing: border-box;
+  transition: border-color 0.15s;
+}
+
+.rs-input:focus {
+  border-color: #ff4500;
+}
+
+.rs-date-row .rs-input {
+  flex: 1;
+  min-width: 0;
+}
+
+/* ─── Checkbox ───────────────────────────────────────────────────────────── */
+
+.rs-checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  cursor: pointer;
+  font-size: 13px;
+  color: #d7dadc;
+}
+
+.rs-checkbox-label input[type="checkbox"] {
+  accent-color: #ff4500;
+  cursor: pointer;
+}
+
+/* ─── Resume banner ──────────────────────────────────────────────────────── */
+
+.rs-resume-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #1e2a1e;
+  border: 1px solid #2d4a2d;
+  border-radius: 7px;
+  padding: 7px 10px;
+  font-size: 12px;
+  color: #7fc97f;
+}
+
+/* ─── Status & progress ──────────────────────────────────────────────────── */
+
+.rs-status-text {
+  font-size: 12px;
+  color: #9a9a9a;
+  margin-bottom: 8px;
+  line-height: 1.4;
+  min-height: 16px;
+}
+
+.rs-progress-track {
+  height: 6px;
+  background: #272729;
+  border-radius: 3px;
+  overflow: hidden;
+  margin-bottom: 5px;
+}
+
+.rs-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #ff4500, #ff6534);
+  border-radius: 3px;
+  transition: width 0.4s ease;
+}
+
+.rs-progress-meta {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  color: #818384;
+}
+
+/* ─── Quota row ──────────────────────────────────────────────────────────── */
+
+.rs-quota-row {
+  background: #272729;
+  border-radius: 7px;
+  padding: 7px 10px;
+  font-size: 12px;
+  color: #818384;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.rs-quota-mini-bar {
+  flex: 1;
+  min-width: 60px;
+  height: 4px;
+  background: #343536;
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.rs-quota-fill {
+  height: 100%;
+  background: #ff4500;
+  border-radius: 2px;
+  transition: width 0.4s ease;
+}
+
+/* ─── Limit CTA ──────────────────────────────────────────────────────────── */
+
+.rs-limit-cta {
+  background: #1e1a15;
+  border: 1px solid #4a3020;
+  border-radius: 8px;
+  padding: 10px 12px;
+}
+
+.rs-limit-text {
+  font-size: 12px;
+  color: #c09060;
+  margin-bottom: 8px;
+  line-height: 1.4;
+}
+
+.rs-upgrade-btn {
+  display: block;
+  text-align: center;
+  background: #ff4500;
+  color: #fff;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 13px;
+  padding: 8px 12px;
+  border-radius: 7px;
+  transition: background 0.15s;
+}
+
+.rs-upgrade-btn:hover {
+  background: #e03d00;
+  text-decoration: none;
+  color: #fff;
+}
+
+/* ─── Action buttons ─────────────────────────────────────────────────────── */
+
+.rs-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.rs-btn {
+  flex: 1;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 7px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s, opacity 0.15s;
+  outline: none;
+  white-space: nowrap;
+}
+
+.rs-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.rs-btn-primary {
+  background: #ff4500;
+  color: #fff;
+}
+
+.rs-btn-primary:hover:not(:disabled) {
+  background: #e03d00;
+}
+
+.rs-btn-secondary {
+  background: #343536;
+  color: #d7dadc;
+}
+
+.rs-btn-secondary:hover:not(:disabled) {
+  background: #424345;
+}
+
+.rs-btn-danger {
+  background: #5f1a1a;
+  color: #ff9090;
+}
+
+.rs-btn-danger:hover:not(:disabled) {
+  background: #7a2020;
+}
+
+.rs-btn-accent {
+  background: #272729;
+  border: 1px solid #ff4500;
+  color: #ff4500;
+  flex: 0 0 auto;
+}
+
+.rs-btn-accent:hover:not(:disabled) {
+  background: #2d2015;
+}
+
+.rs-btn-xs {
+  font-size: 11px;
+  padding: 5px 9px;
+  flex: 0 0 auto;
+}
+
+/* ─── License area ───────────────────────────────────────────────────────── */
+
+.rs-license-area {
+  border-top: 1px solid #272729;
+  padding-top: 12px;
+}
+
+.rs-license-row {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.rs-license-input {
+  flex: 1;
+  font-family: 'Courier New', monospace;
+  font-size: 11px;
+  letter-spacing: 0.5px;
+}
+
+.rs-license-msg {
+  font-size: 11px;
+  margin-top: 5px;
+  min-height: 14px;
+}
+
+.rs-license-msg-success { color: #7fc97f; }
+.rs-license-msg-error   { color: #ff6b6b; }

@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RedditSweep</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      width: 260px;
+      background: #1a1a1b;
+      color: #d7dadc;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-size: 13px;
+    }
+
+    .popup-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 14px;
+      background: #272729;
+      border-bottom: 1px solid #343536;
+    }
+
+    .popup-title {
+      font-weight: 700;
+      font-size: 15px;
+      color: #ff4500;
+    }
+
+    .badge {
+      font-size: 9px;
+      font-weight: 800;
+      letter-spacing: 0.8px;
+      padding: 2px 7px;
+      border-radius: 4px;
+      text-transform: uppercase;
+    }
+
+    .badge-free { background: #343536; color: #818384; }
+    .badge-pro  { background: #ff4500; color: #fff; }
+
+    .popup-body { padding: 14px; }
+
+    .row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 10px;
+      background: #272729;
+      border-radius: 7px;
+      margin-bottom: 8px;
+    }
+
+    .row-label { color: #818384; font-size: 12px; }
+    .row-value { font-weight: 600; color: #d7dadc; }
+    .row-value.running { color: #7fc97f; }
+
+    .divider {
+      height: 1px;
+      background: #343536;
+      margin: 12px 0;
+    }
+
+    .field-label {
+      font-size: 11px;
+      font-weight: 600;
+      color: #818384;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 6px;
+    }
+
+    .license-row {
+      display: flex;
+      gap: 6px;
+    }
+
+    input[type="text"] {
+      flex: 1;
+      background: #272729;
+      border: 1px solid #343536;
+      border-radius: 6px;
+      color: #d7dadc;
+      font-size: 11px;
+      padding: 6px 8px;
+      outline: none;
+      font-family: 'Courier New', monospace;
+      letter-spacing: 0.5px;
+    }
+
+    input[type="text"]:focus { border-color: #ff4500; }
+
+    button {
+      background: #ff4500;
+      border: none;
+      border-radius: 6px;
+      color: #fff;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 6px 10px;
+      cursor: pointer;
+      transition: background 0.15s;
+      white-space: nowrap;
+    }
+
+    button:hover { background: #e03d00; }
+    button:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    #license-msg {
+      font-size: 11px;
+      margin-top: 5px;
+      min-height: 14px;
+    }
+
+    .msg-success { color: #7fc97f; }
+    .msg-error   { color: #ff6b6b; }
+
+    .open-reddit {
+      display: block;
+      text-align: center;
+      background: #272729;
+      border: 1px solid #ff4500;
+      border-radius: 7px;
+      color: #ff4500;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 12px;
+      padding: 8px 12px;
+      margin-top: 4px;
+      transition: background 0.15s;
+    }
+
+    .open-reddit:hover {
+      background: #2d2015;
+      text-decoration: none;
+    }
+
+    .buy-link {
+      display: block;
+      text-align: center;
+      background: #ff4500;
+      border-radius: 7px;
+      color: #fff;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 12px;
+      padding: 8px 12px;
+      margin-top: 8px;
+      transition: background 0.15s;
+    }
+
+    .buy-link:hover { background: #e03d00; text-decoration: none; color: #fff; }
+
+    #pro-section { display: none; }
+    #deactivate-btn {
+      background: #343536;
+      color: #ff6b6b;
+      border: 1px solid #5f1a1a;
+      margin-top: 8px;
+      width: 100%;
+      font-size: 11px;
+    }
+    #deactivate-btn:hover { background: #5f1a1a; }
+  </style>
+</head>
+<body>
+  <div class="popup-header">
+    <span class="popup-title">RedditSweep</span>
+    <span id="plan-badge" class="badge badge-free">FREE</span>
+  </div>
+
+  <div class="popup-body">
+    <div class="row">
+      <span class="row-label">Status</span>
+      <span id="status-val" class="row-value">–</span>
+    </div>
+    <div class="row" id="quota-row">
+      <span class="row-label">Today's deletions</span>
+      <span id="quota-val" class="row-value">0 / 50</span>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- Free: license key + buy link -->
+    <div id="free-section">
+      <div class="field-label">License Key</div>
+      <div class="license-row">
+        <input type="text" id="license-input" placeholder="XXXX-XXXX-XXXX-XXXX" autocomplete="off" spellcheck="false">
+        <button id="activate-btn">Activate</button>
+      </div>
+      <div id="license-msg"></div>
+      <a id="buy-link" href="https://saitoomasaki.lemonsqueezy.com/checkout/buy/f7a5c480-76ff-4de3-9e1a-49d88b99f232"
+         target="_blank" rel="noopener" class="buy-link">
+        Upgrade to Pro — ¥600
+      </a>
+    </div>
+
+    <!-- Pro: deactivate -->
+    <div id="pro-section">
+      <div class="row">
+        <span class="row-label">Plan</span>
+        <span class="row-value">Pro (Unlimited)</span>
+      </div>
+      <button id="deactivate-btn">Deactivate License</button>
+    </div>
+
+    <div class="divider"></div>
+
+    <a href="https://www.reddit.com" target="_blank" class="open-reddit">
+      Open Reddit to use RedditSweep →
+    </a>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
