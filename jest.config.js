@@ -3,7 +3,7 @@ module.exports = {
 
   // Chrome API mocks are loaded before every test file
   setupFiles: ['jest-webextension-mock'],
-  setupFilesAfterFramework: ['./tests/unit/setup.js'],
+  setupFilesAfterEnv: ['./tests/unit/setup.js'],
 
   testMatch: ['**/tests/unit/**/*.test.js'],
 
